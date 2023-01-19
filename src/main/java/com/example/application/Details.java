@@ -1,6 +1,7 @@
 package com.example.application;
 
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,16 +13,20 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 @RequestMapping("/get")
 @EnableHystrix
 public class Details {
+	
+	@Scheduled(fixedDelay = 300)
 	@GetMapping("/name")
 	public String user() {
-		return "ajay";
+		return "success";
 	}
 
+	@Scheduled(fixedDelay = 300)
 	@GetMapping(value = "/hystrix")
 	@HystrixCommand(fallbackMethod = "fallBackHello", commandProperties = {
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000") })
 	public String hello() throws InterruptedException {
 		Thread.sleep(3000);
+		System.out.print("success");
 		return "Welcome Hystrix";
 	}
 
