@@ -14,18 +14,22 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 @EnableHystrix
 public class Details {
 	
-	@Scheduled(fixedDelay = 300)
+//	@Scheduled(fixedDelay = 30)
 	@GetMapping("/name")
-	public String user() {
+	public String user() throws InterruptedException {
+//		wait(300);
+		Thread.sleep(240000);
+		System.out.println("hello");
 		return "success";
 	}
 
-	@Scheduled(fixedDelay = 300)
+//	@Scheduled(fixedDelay = 300)
 	@GetMapping(value = "/hystrix")
-	@HystrixCommand(fallbackMethod = "fallBackHello", commandProperties = {
-			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000") })
+//	@HystrixCommand(fallbackMethod = "fallBackHello", commandProperties = {
+//			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "300") })
 	public String hello() throws InterruptedException {
-		Thread.sleep(3000);
+		Thread.sleep(240000);
+//		wait(300);
 		System.out.print("success");
 		return "Welcome Hystrix";
 	}
@@ -33,4 +37,6 @@ public class Details {
 	private String fallBackHello() {
 		return "Request fails. It takes long time to response";
 	}
+	
+	
 }
