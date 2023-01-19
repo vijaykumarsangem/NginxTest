@@ -18,7 +18,7 @@ public class Details {
 	@GetMapping("/name")
 	public String user() throws InterruptedException {
 //		wait(300);
-		Thread.sleep(240000);
+		Thread.sleep(360000);
 		System.out.println("hello");
 		return "success";
 	}
